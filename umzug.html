@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kürbisfee Pia – Umzug</title>
+<meta name="robots" content="noindex">
+<style>
+body{font-family:system-ui,sans-serif;background:#F6F1E8;color:#25304A;display:grid;place-items:center;min-height:100vh;margin:0;padding:20px;box-sizing:border-box;text-align:center}
+.card{background:#fff;border-radius:22px;padding:26px 22px;max-width:380px;box-shadow:0 6px 24px rgba(37,48,74,.12)}
+h1{font-size:1.3rem;margin:0 0 10px}p{line-height:1.5;margin:0 0 16px}
+button{display:block;width:100%;border:0;border-radius:14px;padding:14px;font-size:1rem;font-weight:600;margin-top:10px;cursor:pointer}
+.a{background:#C2652A;color:#fff}.b{background:#EFE6D6;color:#25304A}
+</style>
+</head>
+<body>
+<div class="card" id="c"><h1>Pia packt deine Sachen ein …</h1><p>Einen Moment bitte.</p></div>
+<script>
+(function(){
+  var OK=/^(kuerbisfee|pias-|winterwunder)/;
+  var PROGRESS=['pias-lichterzauber-v2','kuerbisfee_state_v3'];
+  function weiter(){ try{localStorage.setItem('kuerbisfee_season','winter')}catch(e){} location.replace('winterwunder.html'); }
+  var data=null;
+  try{ var m=location.hash.match(/[#&]d=([^&]*)/); if(m) data=JSON.parse(decodeURIComponent(m[1])); }catch(e){ data=null; }
+  try{ history.replaceState(null,'',location.pathname); }catch(e){}
+  if(!data||typeof data!=='object'){ weiter(); return; }
+  var keys=Object.keys(data).filter(function(k){return OK.test(k)&&typeof data[k]==='string'});
+  function schreiben(){ keys.forEach(function(k){ try{localStorage.setItem(k,data[k])}catch(e){} }); weiter(); }
+  var schonDa=false;
+  try{ schonDa=PROGRESS.some(function(k){return localStorage.getItem(k)!==null && data[k]!==undefined && localStorage.getItem(k)!==data[k]}); }catch(e){}
+  if(!schonDa){ schreiben(); return; }
+  var c=document.getElementById('c');
+  c.innerHTML='<h1>Welchen Spielstand möchtest du behalten?</h1><p>Auf diesem Gerät gibt es unter der neuen Adresse schon einen Spielstand. Du kannst den alten mitnehmen oder den neuen behalten.</p>'+
+    '<button class="a" id="alt">Alten Spielstand mitnehmen</button><button class="b" id="neu">Neuen Spielstand behalten</button>';
+  document.getElementById('alt').onclick=schreiben;
+  document.getElementById('neu').onclick=function(){ keys.forEach(function(k){ try{ if(localStorage.getItem(k)===null) localStorage.setItem(k,data[k]) }catch(e){} }); weiter(); };
+})();
+</script>
+</body>
+</html>
