@@ -3395,11 +3395,12 @@ function openSeasonKF(k){
   document.getElementById('introPopup').style.display = 'flex';
 }
 
+function herbstOffen(){ const d=new Date(), t=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); return t<'2026-12-01' || t>='2027-09-01'; }
 function openSeason(k){
   if(k==='herbst'){
     document.getElementById('introCard').innerHTML = `<img alt="Herbst" src="data:image/webp;base64,${SEASON_IMG.herbst}" style="width:120px; height:120px; border-radius:22px; display:block; margin:0 auto 10px;">
-      <h3>Herbst mit Pia</h3><p>Der Herbst ist vorbei, aber du kannst jederzeit zurück ins Kürbisreich und dir alles noch einmal anschauen.</p>
-      <a class="cta-btn link-btn" style="width:100%; margin-bottom:8px;" href="kuerbisfee-app.html?herbst=1" target="_top">Zur Herbstwelt mit Pia</a>
+      ${herbstOffen() ? `<h3>Herbst mit Pia</h3><p>Der Herbst ist bis zum 30. November noch offen. Wenn du magst, kannst du bis dahin zurück ins Kürbisreich und deine Herbstabenteuer fertig machen.</p>
+      <a class="cta-btn link-btn" style="width:100%; margin-bottom:8px;" href="kuerbisfee-app.html?herbst=1" target="_top">Zur Herbstwelt mit Pia</a>` : `<h3>Der Herbst schläft jetzt</h3><p>Pias Kürbisreich ruht bis zum nächsten Herbst. Dann öffnet es sich wieder. Jetzt braucht Pia deine Hilfe im Winter.</p>`}
       <button class="cta-btn secondary" style="width:100%;" onclick="document.getElementById('introPopup').style.display='none'">Schließen</button>`;
     document.getElementById('introPopup').style.display='flex'; return;
   }

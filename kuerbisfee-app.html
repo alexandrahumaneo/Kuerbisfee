@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<script>/*WW-EARLY*/(function(){try{var top=window.self===window.top;var d=new Date(),t=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');if(top&&!/[?&]herbst/.test(location.search)&&t>='2026-11-01'&&localStorage.getItem('kuerbisfee_season')==='winter'){document.documentElement.style.visibility='hidden';location.replace('winterwunder.html')}}catch(e){}})();</script>
+<script>/*WW-EARLY*/(function(){try{var top=window.self===window.top;var d=new Date(),t=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');var HERBST_ZU='2026-12-01',HERBST_WIEDER='2027-09-01';var herbstZu=t>=HERBST_ZU&&t<HERBST_WIEDER;var wunsch=/[?&]herbst/.test(location.search);if(top&&t>='2026-11-01'&&t<HERBST_WIEDER&&(herbstZu||!wunsch)){document.documentElement.style.visibility='hidden';location.replace('winterwunder.html')}}catch(e){}})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Kürbisfee Pia – Übungsbegleiter | Humaneo Praxis für Kinderphysiotherapie</title>
