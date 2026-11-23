@@ -1,7 +1,7 @@
 {
-  "name": "Die Kürbisfee – Übungsbegleiter",
+  "name": "Kürbisfee Pia",
   "short_name": "Kürbisfee",
-  "start_url": "./kuerbisfee-app.html",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "background_color": "#FBF3E4",
