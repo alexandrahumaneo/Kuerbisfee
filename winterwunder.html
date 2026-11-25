@@ -938,6 +938,8 @@ body.noseason #seasons{display:none!important}body.subpage .topbar{display:none!
 .ubox{max-width:340px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch}.ugrid{width:100%;max-width:none!important;margin:12px 0 4px!important}.usec{text-align:center;margin:18px 0 8px;font-size:1.05rem}.ubtn{width:100%}
 .advban img{width:46px;height:46px;flex:none}
 .advgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}.advdoor{position:relative;border:0;background:none;padding:0;cursor:pointer;aspect-ratio:1}.advdoor img{width:100%;height:100%;display:block;filter:drop-shadow(0 2px 3px rgba(80,60,30,.2))}.advdoor.future img,.advdoor.missed img{filter:grayscale(.4) opacity(.75)}.advdoor>span{position:absolute;left:50%;bottom:-2px;transform:translateX(-50%);background:#fff;border-radius:99px;font-weight:800;font-size:.72rem;padding:0 7px;color:#6E675C}.advdoor.today>span{background:#D9822B;color:#fff}.advdoor i{position:absolute;right:0;top:0;width:20px;height:20px;border-radius:50%;background:#3E8A5A;color:#fff;display:grid;place-items:center}.advdoor i svg{width:12px;height:12px}
+.mini.on{background:var(--lantern-deep);border-color:var(--lantern-deep);color:#fff}.tpcode{font-size:1.5rem;font-weight:800;letter-spacing:.08em;background:var(--wcream);border:2px dashed var(--wborder);border-radius:14px;padding:10px 14px;word-break:break-all;text-align:center}.tplist{font-size:.85rem;color:var(--ink-soft);text-align:left;margin:0;padding-left:18px}.tpin{width:100%;box-sizing:border-box;padding:11px;font-size:1.05rem;border:1.5px solid #E0CFAE;border-radius:10px;font-family:inherit}
+.azring{--p:0%;width:160px;height:160px;border-radius:50%;margin:16px auto 8px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:conic-gradient(#D9822B var(--p),#EFE6D6 0);position:relative}.azring::before{content:"";position:absolute;inset:13px;border-radius:50%;background:var(--card,#fff)}.azring span,.azring small{position:relative}.azring span{font-size:2.8rem;font-weight:800;line-height:1;color:#6E4A1E}.azring small{font-size:.8rem;color:#6E675C}.azring.go span{color:#D9822B}#azmsg.wechsel{font-weight:800;color:#D9822B;font-size:1.05rem}
 .advhead{display:flex;gap:12px;align-items:center;margin:6px 0 10px}.advhead img{width:70px;height:70px}.advhead h3{margin:2px 0 0}.advmprev{width:80%;display:block;margin:6px auto 12px;border-radius:50%}
 .cntbox{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;background:var(--card);border:2px solid var(--line);border-radius:18px;padding:14px;margin:10px 0}.cntbox img{width:58px;height:58px}
 .keypad{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}.keypad button{border:2px solid var(--line);background:var(--card);color:inherit;border-radius:14px;font:800 1.3rem inherit;padding:12px 0;cursor:pointer}.keypad .ok{grid-column:span 2;background:var(--lantern-deep);color:#fff;border-color:transparent;font-size:1rem}
@@ -1174,7 +1176,7 @@ html,body{height:auto!important;min-height:100%}body{padding-bottom:0!important}
     <button class="menu-item" onclick="closeParentPopup(); go('anpassen')">Übungen anpassen<small>Übungen streichen, eigene Übungen mit Foto oder Video</small></button>
     <button class="menu-item" onclick="closeParentPopup(); go('abhaken')">Abhaken ohne Timer<small>Standard: Steine drehen sich nur mit Timer um</small></button>
     <button class="menu-item" onclick="closeParentPopup(); go('alter')">Name &amp; Alter des Kindes<small>Passende Trainingslänge, Geschichte und persönliche Ansprache</small></button>
-    <p class="menu-sec">Pias Spiele</p>
+    <p class="menu-sec">Für Therapeut:innen</p> <button class="menu-item" onclick="closeParentPopup(); terOpen()">Trainingsplan für Eltern erstellen<small>Mit Passwort: Übungen zusammenstellen und per Link oder Code an Eltern schicken</small></button> <p class="menu-sec">Pias Spiele</p>
     <div id="gamesModeBox">
       <button class="menu-item" id="gm_daily" onclick="setGamesMode('daily')">Jeden Tag ein Spiel<small>Für jeden Wochentag gibt es ein Spiel, wenn der Stein des Tages leuchtet (jeden Tag ein Überraschungsspiel)</small></button>
       <button class="menu-item" id="gm_weekly" onclick="setGamesMode('weekly')">Nur 1× pro Woche, von Eltern freigeschaltet<small>Keine Tagesspiele. Ihr schaltet einmal pro Woche alle 7 Spiele für einen Tag frei</small></button>
@@ -2789,7 +2791,7 @@ function tedit(){const kid=isKidMode(),t=curT(),inT=new Set(t.ex);
 function meine(){const kid=isKidMode(),own=S.custom||[],mi=(S.mine||[]).filter(id=>LIB.find(e=>e.id===id)),pl=(S.plus||[]).filter(id=>LIB.find(e=>e.id===id)&&!mi.includes(id));
  const row=(id,tag,btns)=>{const e=byId(id);return `<div class="skipit tedrow ${S.skip[id]?'off':''}"><img src="${pic(id)}" alt=""><span><b>${e.n}</b><small>${tag}</small></span>${btns}</div>`};
  return `<div class="screen">${bar("Meine Übungen","home")}
- <p class="lead">Hier sammeln sich die Übungen, die Eltern oder Therapeut:innen für dich hinzugefügt haben.</p>
+ <p class="lead">Hier sammeln sich die Übungen, die Eltern oder Therapeut:innen für dich hinzugefügt haben.</p> ${S.tplan?`<div class="story extra"><b>Trainingsplan${S.tplan.t?": "+tpEsc(S.tplan.t):""}</b><p class="note" style="margin:4px 0 0">Von deiner Therapeutin oder deinem Therapeuten, übernommen am ${S.tplan.d.split("-").reverse().join(".")}. Je Übung ${S.rounds}×.</p>${S.tplan.n?`<p style="margin:6px 0 0">${tpEsc(S.tplan.n)}</p>`:""}</div>`:""} <button class="ghost" onclick="tpCodeDlg()">Plan-Code eingeben</button>
  ${own.length||pl.length||mi.length?`<button class="cta" onclick="ownGo()">${ic.play} Nur meine Übungen trainieren</button>
  <p class="note center">Mit Timer, als Ausdruck oder mit dem Papier-Timer. Auch dafür dreht sich dein Stein von heute um.</p>
  ${kid?(S.ownOnly?'<p class="note">Das tägliche Training besteht gerade nur aus diesen Übungen.</p>':''):`<div class="story extra ownonly"><label class="chk"><input type="checkbox" ${S.ownOnly?'checked':''} onchange="setOwnOnly(this.checked)"> <b>Tägliches Training: nur meine Übungen</b></label><p class="note" style="margin:6px 0 0">Für Kinder, die zuerst ihre Therapieübungen machen sollen. Das Training der Woche wird dann durch diese Übungen ersetzt. Geschichten, Spiele und Extra-Trainings bleiben als Zusatz erhalten.</p></div>`}`:''}
@@ -2864,7 +2866,7 @@ function anleitung(){return `<div class="screen">${bar("Anleitung für Eltern",V
  <button class="cta" onclick="go('home')">${ic.play} Los geht's mit Pia</button></div>`}
 function advMorning(){const t=iso(todayISO());if(t<"2026-12-01"||t>"2026-12-24"||S.advShown===t)return false;const d=+t.slice(8);S.advShown=t;save();
  const md=document.createElement("div");md.className="modal";md.innerHTML=`<div class="box"><img class="bigstone med flipin" src="${S.advOpen[d]?MED["adv"+String(d).padStart(2,"0")]:MED.heute_k}" alt=""><h3>Guten Morgen${KN()?", "+esc(KN()):""}!</h3><p>Heute ist der ${d}. Dezember. In Pias Adventskalender wartet Türchen ${d} auf dich.</p><button class="cta" id="ago">Türchen ${d} öffnen</button><button class="ghost" id="alater">Später</button></div>`;
- document.body.appendChild(md);$("#ago").onclick=()=>{md.remove();S.advOpen[d]=1;save();go('atuer',{ad:d})};$("#alater").onclick=()=>md.remove();return true}
+ document.body.appendChild(md);$("#ago").onclick=()=>{md.remove();advTap(d)};$("#alater").onclick=()=>md.remove();return true}
 function firstWelcome(){if(S.welcomed)return false;
  let ag=AGE();
  const md=document.createElement("div");md.className="modal";md.innerHTML=`<div class="box hello"><img class="hellohead" src="${IMG.heads[0]}" alt="Pia und ihre Freunde im Winterwald"><h3>Herzlich willkommen!</h3><p>Schön, dass ihr mit Pia im Flüsterwald trainieren wollt. Erzählt Pia kurz, wer heute mit ihr übt.</p>
@@ -2902,6 +2904,40 @@ function events(){const t=iso(todayISO()),up=EVENTS.filter(e=>e.d>=t),past=EVENT
 const ADV_PLAN={1:["m",0],2:["r",0],3:["m",1],4:["w",0],5:["m",2],6:["k",0],7:["m",3],8:["r",1],9:["m",4],10:["w",1],11:["m",5],12:["r",2],13:["k",1],14:["m",6],15:["w",2],16:["m",7],17:["r",3],18:["m",8],19:["w",3],20:["k",2],21:["m",10],22:["r",4],23:["m",11],24:["m",9]};
 const ADV_T={m:"Mandala zum Ausmalen",r:"Pias Rechenrätsel",w:"Pias Wortsuche",k:"Pias Plätzchen-Krimi"};
 const MANDN=["Pia und Hazel","Pia und Rana","Bruno im Laub","Ophelias Sternennetz","Kasimir im Mondlicht","Robins Kompass","Elsa im Schnee","Rana im Tannenwald","Hazel mit Nuss","Willkommen 2027","Oda bei Nacht","Ann im Kräuterladen"];
+/* Türchen-Zauber: vor dem Öffnen eine kleine Übung. Dauer nach Alter: bis 4 J. 15 Sek., 5 bis 7 J. 20 Sek., ab 8 J. 30 Sek. */
+const ADV_UE=[
+ ["Auf einem Bein stehen","Stell dich auf ein Bein wie ein Storch im Schnee. Breite die Arme aus, dann wackelst du weniger.","Jetzt das andere Bein!"],
+ ["Hüpfen","Hüpf wie Hazel durch den Schnee. Kleine Hüpfer oder große Sprünge, ganz wie du magst.",""],
+ ["Im Kreis drehen","Dreh dich langsam im Kreis wie eine Schneeflocke im Wind. Wird dir schwindelig, bleib kurz stehen.","Jetzt andersherum!"],
+ ["Arme schwingen","Schwing deine Arme vor und zurück wie Pias Flügel. Flapp, flapp!",""],
+ ["Kopf hängen lassen","Lass deinen Kopf ganz langsam nach vorne sinken, so müde wie Bruno im Winterschlaf. Atme ruhig ein und aus.",""],
+ ["Auf den Bauch legen","Leg dich auf den Bauch wie Rana, wenn sie im Laub auf der Lauer liegt. Kopf auf die Hände, ganz still.",""],
+ ["Auf den Rücken legen","Leg dich auf den Rücken wie ein Schneestern. Arme und Beine weit auseinander, und schau nach oben.",""],
+ ["Einen Fuß in die Hand nehmen","Stell dich auf ein Bein und nimm den anderen Fuß hinten in die Hand. Halt dich gern an einer Wand fest.","Jetzt der andere Fuß!"],
+ ["Mit dem Fuß ans Ohr","Setz dich hin und hol einen Fuß ganz langsam Richtung Ohr. Nur so weit, wie es sich gut anfühlt.","Jetzt der andere Fuß!"],
+ ["Auf den Zehenspitzen stehen","Stell dich auf die Zehenspitzen und mach dich ganz groß, als wolltest du die Sterne berühren.",""],
+ ["Bein kreisen","Steh auf einem Bein und mal mit dem anderen Fuß große Kreise in die Luft.","Jetzt das andere Bein!"],
+ ["Schultern kreisen","Kreise deine Schultern ganz langsam und groß nach hinten.","Jetzt nach vorne!"],
+ ["Fuß kreisen","Setz dich hin und lass einen Fuß kreisen, groß und langsam.","Jetzt der andere Fuß!"],
+ ["Spinnenfinger","Lass deine Finger wie Ophelia, die Spinne, über deine Beine, deine Arme und deinen Bauch krabbeln.",""],
+ ["Zehen wackeln","Zieh Schuhe und Socken aus und wackel mit allen zehn Zehen. Kannst du sie auch einzeln bewegen?",""],
+ ["Bein schwingen","Halt dich an einer Wand fest und schwing ein Bein vor und zurück wie ein Pendel.","Jetzt das andere Bein!"],
+ ["Auf einer Linie laufen","Lauf Fuß vor Fuß auf einer Linie, wie über einen schmalen Baumstamm. Eine Fuge im Boden oder ein Seil geht auch.",""]];
+function advSec(){const a=AGE();return a===4?15:a===8?30:20}
+function azauber(){const d=V.ad||1,u=ADV_UE[(d-1)%ADV_UE.length],sec=advSec();
+ return `<div class="screen">${bar("Türchen "+d,"advent")}
+ <div class="advhead"><img src="${MED.heute_k}" alt=""><div><span class="eyebrow">Erst bewegen, dann zaubern</span><h3>${u[0]}</h3></div></div>
+ <p class="lead center">${u[1]}</p>
+ <div class="azring" id="azr"><span id="azt">${sec}</span><small>Sekunden</small></div>
+ <p class="note center" id="azmsg">Halte ${sec} Sekunden durch, dann öffnet sich dein Türchen.</p>
+ <button class="cta" id="azgo" onclick="azStart(${d})">${ic.play} Los geht's</button></div>`}
+let AZT=null;
+function azStart(d){const u=ADV_UE[(d-1)%ADV_UE.length],sec=advSec(),half=Math.ceil(sec/2);let left=sec;clearInterval(AZT);
+ const b=$("#azgo");if(b)b.style.visibility="hidden";const r=$("#azr");if(r)r.classList.add("go");const m=$("#azmsg");if(m)m.textContent="Super, mach weiter!";
+ AZT=setInterval(()=>{if(V.screen!=="azauber"||V.ad!==d){clearInterval(AZT);return}
+  left--;const t=$("#azt"),rr=$("#azr"),mm=$("#azmsg");if(t)t.textContent=Math.max(0,left);if(rr)rr.style.setProperty("--p",Math.round((sec-left)/sec*100)+"%");
+  if(left===half&&u[2]&&mm){mm.textContent=u[2];mm.classList.add("wechsel")}
+  if(left<=0){clearInterval(AZT);S.advOpen[d]=1;save();pumpkinToast("Geschafft! Dein Türchen ist offen.");setTimeout(()=>go('atuer',{ad:d}),700)}},1000)}
 const ADVKEY=d=>"2026-12-"+String(d).padStart(2,"0");
 S.advOpen=S.advOpen||{};S.advDone=S.advDone||{};
 function advState(d){const k=ADVKEY(d),t=iso(todayISO());if(S.advOpen[d])return "open";if(k>t)return PREVIEW?"ready":"future";return k===t?"today":"ready"}
@@ -2910,13 +2946,13 @@ function advBanner(){const t=iso(todayISO());if(t>"2026-12-26")return "";
  const pre=t<"2026-12-01";return `<button class="hintcard advban" onclick="go('advent')"><img src="${MED.adv01}" alt=""><span><b>Pias Adventskalender</b><small>${pre?"Ab 1. Dezember: jeden Tag ein Türchen":"Jeden Tag ein Türchen: Mandalas, Rätsel und ein Plätzchen-Krimi"}</small></span><span class="chev">${ic.next}</span></button>`}
 function advent(){
  return `<div class="screen">${bar("Pias Adventskalender",V.advfrom||"lib")}
- <p class="lead center">Vom 1. bis 24. Dezember darfst du jeden Tag ein Türchen öffnen. Dahinter warten Mandalas zum Ausmalen, Rechenrätsel, Wortsuchen und an den Adventssonntagen ein Plätzchen-Krimi.</p>
+ <p class="lead center">Vom 1. bis 24. Dezember darfst du jeden Tag ein Türchen öffnen. Vorher machst du eine kleine Zauberübung, dann springt es auf. Dahinter warten Mandalas zum Ausmalen, Rechenrätsel, Wortsuchen und an den Adventssonntagen ein Plätzchen-Krimi.</p>
  <div class="advgrid">${Array.from({length:24},(_,j)=>{const d=j+1,st=advState(d),done=S.advDone[d];
   return `<button class="advdoor ${st} ${done?'done':''}" onclick="advTap(${d})" aria-label="Türchen ${d}${st==='open'?', '+ADV_T[ADV_PLAN[d][0]]:''}"><img src="${st==='open'?MED["adv"+String(d).padStart(2,"0")]:st==='today'?MED.heute_k:MED.zu}" alt=""><span>${d}</span>${done?'<i>'+ic.chk+'</i>':''}</button>`}).join("")}</div>
  <p class="note center">Ein Türchen verpasst? Kein Problem, die Türchen von den Tagen davor kannst du jederzeit noch öffnen.</p></div>`}
 function advTap(d){const st=advState(d);
  if(st==="future"){pumpkinToast("Türchen "+d+" öffnet sich am "+d+". Dezember");return}
- S.advOpen[d]=1;save();go('atuer',{ad:d})}
+ if(!S.advOpen[d]){go('azauber',{ad:d});return}go('atuer',{ad:d})}
 function atuer(){const d=V.ad||1,[ty,ix]=ADV_PLAN[d];V.advfrom2=V.advfrom2||"advent";
  let body="";
  if(ty==="m")body=`<p class="lead center">Heute hinter deinem Türchen: ein Mandala${MANDN[ix]?": <b>"+MANDN[ix]+"</b>":""}. Du kannst es hier am Handy ausmalen oder ausdrucken.</p><img class="advmprev" src="${IMG.mand[ix]}" alt="Mandala ${MANDN[ix]}"><button class="cta" onclick="go('malen',{mi:${ix},mfrom2:'atuer'})">${ic.pen} Jetzt ausmalen</button><p class="note center">Ab jetzt findest du es auch in der Bibliothek unter „Ausmalbilder“.</p>`;
@@ -3331,8 +3367,66 @@ function numsBox(p){const h=hst()[p.id]=hst()[p.id]||{n:{}};h.n=h.n||{};const L=
  <p class="dfb" style="text-align:center">${best?`Dein weitester Sprung: <b>${best} Fußlängen</b>${nm(", ")}. Pias Flügel wären stolz auf dich!`:'Eine Fußlänge: Setz einen Fuß direkt vor den anderen und zähl mit.'}</p>
  <p class="note">Am besten auf weichem Boden springen, zum Beispiel auf einer Wiese oder einer Matte.</p></div>`}
 /*EXTRAS-END*/
-/*keep*/const SCREENS={faq,events,advent,atuer,ausmalen,malen,anleitung,gdruck,meine,tedit,wbview,papier,abhaken,alter,spaet,bisher,mitmach,home,backstube,kindname,freundebuch,familie,teilen,lib,path,day,training,player,moves,exdetail,story,house,workbook,info,spiele,bewegung,wuerfel,freeze,simon,vorgeschichte,herbst,countdown,druck,extra,anpassen};
-const TABOF={faq:"uebersicht",events:"uebersicht",advent:"bibliothek",atuer:"bibliothek",ausmalen:"bibliothek",malen:"bibliothek",anleitung:"uebersicht",get wbview(){return V.wbfrom==="mitmach"?"uebungen":"bibliothek"},gdruck:"bibliothek",meine:"uebungen",tedit:"uebungen",papier:"erfolge",abhaken:"uebungen",alter:"uebungen",spaet:"uebungen",bisher:"bibliothek",mitmach:"bibliothek",home:"uebungen",backstube:"bibliothek",kindname:"uebungen",freundebuch:"bibliothek",familie:"bibliothek",teilen:"uebungen",training:"uebungen",player:"uebungen",exdetail:"uebungen",moves:"uebungen",info:"uebungen",path:"erfolge",day:"erfolge",house:"erfolge",lib:"bibliothek",story:"bibliothek",workbook:"bibliothek",spiele:"erfolge",vorgeschichte:"bibliothek",herbst:"bibliothek",druck:"bibliothek",extra:"uebungen",anpassen:"uebungen"};
+/* ================= THERAPEUTEN-BEREICH: Trainingspläne per Link oder Code =================
+   Passwortschutz nur als Tür für Fachleute (keine Patientendaten im Plan). Gespeichert ist nur ein Hash. */
+const TH_HASH="1b7f738891b2f75f14f7643751ac5e09505c628b1e66152e058c2871d6a4dcc1",TH_SALT="kuerbisfee-therapie-2026:";
+const tpEsc=t=>String(t??"").replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+async function thHash(p){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(TH_SALT+p));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}
+function thOk(){try{return localStorage.getItem("kf_ther")===TH_HASH}catch(e){return false}}
+function thLogout(){try{localStorage.removeItem("kf_ther")}catch(e){}go('home');pumpkinToast("Du bist abgemeldet.")}
+function terOpen(){if(thOk()){go('tplan');return}
+ const wa="https://wa.me/491776700746?text="+encodeURIComponent("Hallo Alexandra, ich bin Therapeut:in und hätte gerne das Passwort für die Trainingspläne in der Kürbisfee-App.");
+ const md=document.createElement("div");md.className="modal";md.innerHTML=`<div class="box"><h3 style="font-size:1.4rem">Für Therapeut:innen</h3><p>Hier stellst du Trainingspläne aus Pias Übungen zusammen und schickst sie an Eltern. Das Passwort bekommst du bei Alexandra Amersbach.</p><input id="thpw" class="tpin" type="password" autocomplete="current-password" autocapitalize="off" spellcheck="false" placeholder="Passwort"><p class="note" id="thmsg" style="color:#A0442F"></p><button class="cta" id="thgo">Anmelden</button><a class="ghost" style="text-decoration:none;text-align:center" target="_top" href="${wa}">Passwort per WhatsApp anfragen</a><button class="ghost" id="thx">Abbrechen</button></div>`;
+ document.body.appendChild(md);const inp=document.getElementById("thpw");setTimeout(()=>inp.focus(),60);
+ const tryIt=async()=>{let h="";try{h=await thHash(inp.value)}catch(e){document.getElementById("thmsg").textContent="Das geht in diesem Browser leider nicht. Öffne die App unter app.kuerbisfeepia.de.";return}
+  if(h===TH_HASH){try{localStorage.setItem("kf_ther",TH_HASH)}catch(e){}md.remove();go('tplan')}else{document.getElementById("thmsg").textContent="Das Passwort stimmt nicht. Achte auf Groß- und Kleinschreibung.";inp.select()}};
+ document.getElementById("thgo").onclick=tryIt;inp.onkeydown=e=>{if(e.key==="Enter")tryIt()};document.getElementById("thx").onclick=()=>md.remove()}
+function tpD(){S.tpDraft=S.tpDraft||{t:"",ex:[],r:2,o:true,n:""};return S.tpDraft}
+function tpAdd(id){const D=tpD();if(!D.ex.includes(id)&&D.ex.length<20)D.ex.push(id);save();render()}
+function tpMove(k,d){const a=tpD().ex,j=k+d;if(j<0||j>=a.length)return;[a[k],a[j]]=[a[j],a[k]];save();render()}
+function tpDel(k){tpD().ex.splice(k,1);save();render()}
+function tpClear(){S.tpDraft={t:"",ex:[],r:2,o:true,n:""};save();render()}
+function tplan(){if(!thOk())return `<div class="screen">${bar("Trainingsplan","home")}<p class="lead">Dieser Bereich ist für Therapeut:innen.</p><button class="cta" onclick="terOpen()">Anmelden</button></div>`;
+ const D=tpD(),LVN=["","Leicht","Mittel","Kräftig"];
+ const row=(e,btns)=>`<div class="skipit tedrow"><img src="${IMG.ex[e.id]}" alt=""><span><b>${e.n}</b><small>${e.sec} Sek.${e.side?' · beide Seiten':''}</small></span>${btns}</div>`;
+ return `<div class="screen">${bar("Trainingsplan für Eltern","home")}
+ <p class="lead">Stell Übungen aus Pias Bibliothek zusammen und schick den Plan per Link oder Code. Die Eltern übernehmen ihn mit einem Tippen, er erscheint dann unter „Meine Übungen“.</p>
+ <div class="cxform">
+  <label>Name des Plans<input type="text" maxlength="40" value="${tpEsc(D.t)}" placeholder="z. B. Starke Mitte" oninput="tpD().t=this.value;save()"></label>
+  <label>Wiederholungen je Übung<span style="display:flex;gap:6px">${[1,2,3].map(r=>`<button type="button" class="mini ${D.r===r?'on':''}" onclick="tpD().r=${r};save();render()">${r}×</button>`).join("")}</span></label>
+  <label class="chk" style="flex-direction:row;font-weight:700"><input type="checkbox" ${D.o?'checked':''} onchange="tpD().o=this.checked;save()"> Tägliches Training: nur diese Übungen</label>
+  <label>Hinweis für die Eltern (optional)<textarea maxlength="300" rows="3" oninput="tpD().n=this.value;save()" placeholder="z. B. Bitte fünfmal pro Woche, am besten vor dem Abendessen.">${tpEsc(D.n)}</textarea></label>
+  <p class="note" style="margin:0">Bitte keine Namen, Diagnosen oder Gesundheitsdaten eintragen. Der Plan wird als Link verschickt.</p>
+ </div>
+ <h3 class="sec2">Im Plan (${D.ex.length})</h3>
+ ${D.ex.length?`<div class="skiplist">${D.ex.map((id,k)=>row(byId(id),`<span class="tdord" style="flex-direction:row"><button class="mini" ${k===0?'disabled':''} onclick="tpMove(${k},-1)" aria-label="Nach oben">▲</button><button class="mini" ${k===D.ex.length-1?'disabled':''} onclick="tpMove(${k},1)" aria-label="Nach unten">▼</button><button class="mini warn" onclick="tpDel(${k})" aria-label="Entfernen">✕</button></span>`)).join("")}</div>
+ <button class="cta" onclick="tpShare()">Plan an Eltern schicken</button><button class="ghost" onclick="tpClear()">Neuen Plan beginnen</button>`:'<p class="note">Noch keine Übung ausgewählt. Tippe unten bei einer Übung auf „Dazu“.</p>'}
+ <h3 class="sec2">Pias Übungen</h3>
+ ${[1,2,3].map(lv=>{const G=LIB.filter(e=>e.lvl===lv&&!D.ex.includes(e.id));return G.length?`<p class="psmall2"><b>${LVN[lv]}</b></p><div class="skiplist">${G.map(e=>row(e,`<button class="mini" onclick="go('exdetail',{ex:'${e.id}',from:'tplan'})">Ansehen</button><button class="mini on" onclick="tpAdd('${e.id}')">Dazu</button>`)).join("")}</div>`:''}).join("")}
+ <button class="ghost" onclick="thLogout()" style="margin-top:14px">Vom Therapeuten-Bereich abmelden</button></div>`}
+function tpCodeOf(D){return "PIA1"+D.r+(D.o?1:0)+D.ex.map(id=>String(LIB.findIndex(e=>e.id===id)).padStart(2,"0")).join("")}
+function tpPretty(c){return c.slice(0,4)+"-"+c.slice(4).match(/.{1,4}/g).join("-")}
+function tpParse(code){const c=String(code||"").toUpperCase().replace(/[^0-9A-Z]/g,"");if(!c.startsWith("PIA1")||c.length<8)return null;const r=+c[4],o=c[5]==="1",body=c.slice(6);if(![1,2,3].includes(r)||body.length%2)return null;const ex=[];for(let i=0;i<body.length;i+=2){const x=body.slice(i,i+2);if(!/^\d\d$/.test(x))return null;const e=LIB[+x];if(!e)return null;if(!ex.includes(e.id))ex.push(e.id)}return ex.length?{r,o,ex}:null}
+function tpShare(){const D=tpD();if(!D.ex.length)return;const code=tpCodeOf(D),pc=tpPretty(code);
+ let url="https://app.kuerbisfeepia.de/winterwunder.html#plan="+code;if(D.t.trim())url+="&t="+encodeURIComponent(D.t.trim());if(D.n.trim())url+="&n="+encodeURIComponent(D.n.trim());
+ const txt="Hallo! Hier ist euer Trainingsplan"+(D.t.trim()?" „"+D.t.trim()+"“":"")+" für die Kürbisfee-App ("+D.ex.length+" Übungen).\n\nLink antippen und „Plan übernehmen“ wählen:\n"+url+"\n\nOder in der App unter „Meine Übungen“ auf „Plan-Code eingeben“ tippen und diesen Code eintragen:\n"+pc;
+ const md=document.createElement("div");md.className="modal";md.innerHTML=`<div class="box"><h3 style="font-size:1.4rem">Plan verschicken</h3><p>Der Plan steckt im Link. Wer die App auf dem iPhone als Symbol gespeichert hat, gibt am besten den Code ein.</p><div class="tpcode">${pc}</div><button class="cta" id="tps">Teilen</button><a class="cta alt2" style="text-decoration:none;text-align:center" target="_top" href="https://wa.me/?text=${encodeURIComponent(txt)}">Per WhatsApp schicken</a><button class="ghost" id="tpc">Text kopieren</button><button class="ghost" id="tpt">Auf diesem Gerät ausprobieren</button><button class="ghost" id="tpx">Schließen</button></div>`;
+ document.body.appendChild(md);
+ document.getElementById("tps").onclick=async()=>{try{if(navigator.share){await navigator.share({title:"Trainingsplan",text:txt});return}}catch(e){if(e&&e.name==="AbortError")return}document.getElementById("tpc").click()};
+ document.getElementById("tpc").onclick=async()=>{try{await navigator.clipboard.writeText(txt);pumpkinToast("Text kopiert")}catch(e){const t=document.createElement("textarea");t.value=txt;document.body.appendChild(t);t.select();try{document.execCommand("copy");pumpkinToast("Text kopiert")}catch(x){}t.remove()}};
+ document.getElementById("tpt").onclick=()=>{md.remove();tpOffer(tpParse(code),D.t.trim(),D.n.trim())};
+ document.getElementById("tpx").onclick=()=>md.remove()}
+function tpOffer(P,t,n){if(!P)return;const md=document.createElement("div");md.className="modal";
+ md.innerHTML=`<div class="box"><h3 style="font-size:1.4rem">Neuer Trainingsplan</h3><p>${t?"<b>„"+tpEsc(t)+"“</b><br>":""}Von deiner Therapeutin oder deinem Therapeuten: ${P.ex.length} Übungen, je ${P.r}×.</p><ol class="tplist">${P.ex.map(id=>`<li>${tpEsc(byId(id).n)}</li>`).join("")}</ol>${n?`<p style="text-align:left;background:var(--wcream);border-radius:12px;padding:10px 12px">${tpEsc(n)}</p>`:""}<p class="note">Der Plan ersetzt die Übungen aus Pias Bibliothek unter „Meine Übungen“. Eigene Übungen mit Foto oder Video bleiben erhalten.</p><button class="cta" id="tpok">Plan übernehmen</button><button class="ghost" id="tpno">Abbrechen</button></div>`;
+ document.body.appendChild(md);document.getElementById("tpno").onclick=()=>md.remove();
+ document.getElementById("tpok").onclick=()=>{md.remove();S.mine=P.ex.slice();S.rounds=P.r;S.ownOnly=!!P.o;S.tplan={t:t||"",n:n||"",d:iso(todayISO())};save();go('meine');pumpkinToast("Dein Trainingsplan ist da!")}}
+function tpCodeDlg(){const md=document.createElement("div");md.className="modal";md.innerHTML=`<div class="box"><h3 style="font-size:1.4rem">Plan-Code eingeben</h3><p>Den Code bekommt ihr von eurer Therapeutin oder eurem Therapeuten, er beginnt mit PIA1.</p><input id="tpin" class="tpin" type="text" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="PIA1-…"><p class="note" id="tpmsg" style="color:#A0442F"></p><button class="cta" id="tpgo">Weiter</button><button class="ghost" id="tpx2">Abbrechen</button></div>`;
+ document.body.appendChild(md);const inp=document.getElementById("tpin");setTimeout(()=>inp.focus(),60);
+ const go2=()=>{const P=tpParse(inp.value);if(!P){document.getElementById("tpmsg").textContent="Dieser Code passt leider nicht. Bitte prüft ihn noch einmal.";return}md.remove();tpOffer(P,"","")};
+ document.getElementById("tpgo").onclick=go2;inp.onkeydown=e=>{if(e.key==="Enter")go2()};document.getElementById("tpx2").onclick=()=>md.remove()}
+(function(){const m=location.hash.match(/^#plan=([^&]+)(.*)$/);if(!m)return;let ps;try{ps=new URLSearchParams(m[2].replace(/^&/,""))}catch(e){ps=new URLSearchParams()}const P=tpParse(decodeURIComponent(m[1]));try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}if(P)setTimeout(()=>tpOffer(P,ps.get("t")||"",ps.get("n")||""),900)})();
+/*keep*/const SCREENS={tplan,faq,events,advent,azauber,atuer,ausmalen,malen,anleitung,gdruck,meine,tedit,wbview,papier,abhaken,alter,spaet,bisher,mitmach,home,backstube,kindname,freundebuch,familie,teilen,lib,path,day,training,player,moves,exdetail,story,house,workbook,info,spiele,bewegung,wuerfel,freeze,simon,vorgeschichte,herbst,countdown,druck,extra,anpassen};
+const TABOF={tplan:"uebersicht",faq:"uebersicht",events:"uebersicht",advent:"bibliothek",azauber:"bibliothek",atuer:"bibliothek",ausmalen:"bibliothek",malen:"bibliothek",anleitung:"uebersicht",get wbview(){return V.wbfrom==="mitmach"?"uebungen":"bibliothek"},gdruck:"bibliothek",meine:"uebungen",tedit:"uebungen",papier:"erfolge",abhaken:"uebungen",alter:"uebungen",spaet:"uebungen",bisher:"bibliothek",mitmach:"bibliothek",home:"uebungen",backstube:"bibliothek",kindname:"uebungen",freundebuch:"bibliothek",familie:"bibliothek",teilen:"uebungen",training:"uebungen",player:"uebungen",exdetail:"uebungen",moves:"uebungen",info:"uebungen",path:"erfolge",day:"erfolge",house:"erfolge",lib:"bibliothek",story:"bibliothek",workbook:"bibliothek",spiele:"erfolge",vorgeschichte:"bibliothek",herbst:"bibliothek",druck:"bibliothek",extra:"uebungen",anpassen:"uebungen"};
 const MOVESCR=["bewegung","wuerfel","freeze","simon"];
 function markNav(t){document.body.setAttribute("data-tab",t);document.querySelectorAll("#bottomNav button").forEach(b=>{const on=b.dataset.tab===t;b.classList.toggle("active",on);b.setAttribute("aria-current",on?"page":"false")})}
 function showUeb(on){const u=document.getElementById("uebersichtView"),a=document.getElementById("app");if(u)u.style.display=on?"":"none";if(a)a.style.display=on?"none":""}
